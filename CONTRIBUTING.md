@@ -40,30 +40,17 @@ Valid categories (matching the Pager's payload roots):
 | `recon/client` | `/root/payloads/recon/client/<name>/` |
 | `alerts/<type>` | `/root/payloads/alerts/<type>/<name>/` |
 
-## index.json
+## How the installer finds your payload
 
-The installer reads `index.json` at the repo root. Add an entry for your
-payload so it shows up in the picker:
+The installer works by PR number. When a user enters your PR number, it
+fetches that PR's changed files via the GitHub API and installs every file
+under `payloads/`. So you don't need to update any manifest — just make sure
+your payload lives at `payloads/<category>/<name>/` and its `payload.sh` is
+present.
 
-```json
-{
-  "name": "mypayload",
-  "title": "My Payload — what it does",
-  "category": "user/interception",
-  "desc": "One-line description shown in the installer.",
-  "files": ["payload.sh", "engine.py", "README.md"]
-}
-```
-
-- `name` — directory name (unique).
-- `title` — display title (unique, shown in the picker).
-- `category` — one of the categories above.
-- `desc` — one-line summary.
-- `files` — every file the payload needs to run, relative to the payload
-  directory. Include nested paths (`lib/pagerctl.so`, `web/index.html`). The
-  installer downloads exactly these.
-
-Keep `index.json` sorted alphabetically by `name`.
+Keep the payload directory self-contained: every file the payload needs to run
+must be in that directory (including nested paths like `lib/pagerctl.so` or
+`web/index.html`).
 
 ## Testing
 

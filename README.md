@@ -21,8 +21,8 @@ submit a pull request to add their own.
 The repo ships a payload that turns the Pager into its own package manager:
 **UNLEASHED Installer** (`payloads/user/general/unleashed-installer/`).
 
-It browses this repo's `index.json`, lists every payload, and pulls the one you
-pick straight onto the Pager — no laptop, no `scp`, no `git`.
+You give it a **pull-request number** and it pulls that payload straight onto
+the Pager — no laptop, no `scp`, no `git`.
 
 ### Install the installer (one time)
 
@@ -34,8 +34,9 @@ scp -r payloads/user/general/unleashed-installer \
 ssh root@172.16.42.1 'chmod +x /root/payloads/user/general/unleashed-installer/payload.sh'
 ```
 
-Then run **UNLEASHED Installer** from **Payloads → User Payloads**. Pick a
-payload and it lands in the correct category directory, ready to launch.
+Then run **UNLEASHED Installer** from **Payloads → User Payloads**. Enter the
+PR number of the payload you want, confirm, and it lands in the correct
+category directory, ready to launch.
 
 ---
 
@@ -54,11 +55,12 @@ The short version:
      ...                 # any supporting files
      README.md           # recommended
    ```
-3. Add your payload to `index.json` (name, title, category, desc, files).
-4. Open a pull request against `main`.
+3. Open a pull request against `main`.
 
 Valid categories are the Pager's native payload roots:
 `user/*`, `recon/access_point`, `recon/client`, `alerts/*`.
+
+Once merged (or while open), your payload is installable by its PR number.
 
 ---
 
@@ -69,7 +71,6 @@ Valid categories are the Pager's native payload roots:
 ├── README.md
 ├── CONTRIBUTING.md
 ├── LICENSE
-├── index.json                       # manifest the installer reads
 └── payloads/
     └── <category>/<name>/           # one directory per payload
         ├── payload.sh

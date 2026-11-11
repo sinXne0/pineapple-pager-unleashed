@@ -1,24 +1,21 @@
 #!/bin/bash
 # Title: UNLEASHED - Payload Installer
-# Description: Browse and install payloads from the pineapple-pager-unleashed
-#              community repo (payloads Hak5 won't merge). Pulls the selected
-#              payload straight onto the Pager - no laptop required.
+# Description: Pull a payload from the pineapple-pager-unleashed community repo
+#              by its pull-request number. No laptop required.
 # Author: sinXne0
-# Version: 1.0
+# Version: 2.0
 # Category: user/general
 # Firmware: 2.0.0-stable or newer
 
 REPO="sinXne0/pineapple-pager-unleashed"
-BRANCH="main"
-BASE="https://raw.githubusercontent.com/$REPO/$BRANCH"
-INDEX_URL="$BASE/index.json"
-CACHE="/tmp/unleashed_index.json"
+API="https://api.github.com/repos/$REPO"
+RAW="https://raw.githubusercontent.com/$REPO"
 
 # --- DuckyScript stubs (dev / non-Pager) -----------------------------------
 command -v LOG >/dev/null 2>&1                || LOG() { echo "${2:-}"; }
 command -v ALERT >/dev/null 2>&1              || ALERT() { echo "ALERT: $*"; }
 command -v ERROR_DIALOG >/dev/null 2>&1       || ERROR_DIALOG() { echo "ERROR: $*"; }
-command -v LIST_PICKER >/dev/null 2>&1        || LIST_PICKER() { echo "${2:-}"; }
+command -v TEXT_PICKER >/dev/null 2>&1        || TEXT_PICKER() { echo "${2:-}"; }
 command -v LED >/dev/null 2>&1                || LED() { :; }
 command -v CONFIRMATION_DIALOG >/dev/null 2>&1 || CONFIRMATION_DIALOG() { echo "true"; }
 
@@ -34,65 +31,84 @@ LED BLUE 2>/dev/null
 LOG ""
 LOG magenta "  U N L E A S H E D  -  payload installer"
 LOG ""
-LOG cyan "Fetching index from $REPO ..."
+LOG "Install a payload by its PR number in"
+LOG "github.com/$REPO"
 
-INDEX=$(curl -fsSL "$INDEX_URL" 2>/dev/null)
-if [ -z "$INDEX" ]; then
+# --- ask for the PR number -------------------------------------------------
+PR=$(TEXT_PICKER "Pull request number" "")
+[ -z "$PR" ] && exit 0
+case "$PR" in
+    ''|*[!0-9]*) ERROR_DIALOG "Enter a numeric PR number."; exit 1 ;;
+esac
+
+# --- fetch PR info (head commit) + changed files ---------------------------
+LED BLUE 2>/dev/null
+LOG cyan "Fetching PR #$PR ..."
+
+PR_INFO=$(curl -fsSL "$API/pulls/$PR" 2>/dev/null)
+if [ -z "$PR_INFO" ]; then
     LED RED 2>/dev/null
-    ERROR_DIALOG "Cannot reach $REPO\n\nCheck that the Pager has internet access, then retry."
+    ERROR_DIALOG "Could not fetch PR #$PR.\n\nCheck the number and internet access."
     exit 1
 fi
-echo "$INDEX" > "$CACHE"
+HEAD_SHA=$(echo "$PR_INFO" | jq -r '.head.sha // empty')
+TITLE=$(echo "$PR_INFO" | jq -r '.title // ("PR #" + $pr)' --arg pr "$PR")
+if [ -z "$HEAD_SHA" ]; then
+    LED RED 2>/dev/null
+    ERROR_DIALOG "PR #$PR not found."
+    exit 1
+fi
 
-# --- build the picker label list -------------------------------------------
-mapfile -t LABELS < <(echo "$INDEX" | jq -r '.payloads[] | (.title // .name)')
-COUNT="${#LABELS[@]}"
+FILES=$(curl -fsSL "$API/pulls/$PR/files" 2>/dev/null)
+if [ -z "$FILES" ]; then
+    LED RED 2>/dev/null
+    ERROR_DIALOG "Could not fetch PR #$PR files."
+    exit 1
+fi
+
+# Only files under payloads/, ignoring removals.
+LIST=$(echo "$FILES" | jq -c '[.[] | select(.filename | startswith("payloads/")) | select(.status != "removed")]')
+COUNT=$(echo "$LIST" | jq 'length')
 if [ "$COUNT" -eq 0 ]; then
-    ALERT "The repo has no payloads yet.\n\nContribute at github.com/$REPO"
+    ALERT "PR #$PR has no payload files.\n\n$TITLE"
     exit 0
 fi
 
-PICK=$(LIST_PICKER "UNLEASHED payloads ($COUNT)" "${LABELS[@]}")
-[ -z "$PICK" ] && exit 0
+LOG cyan "PR #$PR: $TITLE"
+LOG "  $COUNT file(s) to install"
 
-# --- resolve the selection back to name/category/desc ----------------------
-SELQ='.payloads[] | select((.title // .name) == $t)'
-NAME=$(echo "$INDEX" | jq -r --arg t "$PICK" "$SELQ | .name")
-CATEGORY=$(echo "$INDEX" | jq -r --arg t "$PICK" "$SELQ | .category")
-DESC=$(echo "$INDEX" | jq -r --arg t "$PICK" "$SELQ | .desc")
-
-if [ -z "$NAME" ] || [ -z "$CATEGORY" ]; then
-    ALERT "Could not resolve the selection."
-    exit 1
-fi
-
-DEST="$PAYLOAD_ROOT/$CATEGORY/$NAME"
-[ -n "$DESC" ] && LOG "  $DESC"
-
-resp=$(CONFIRMATION_DIALOG "Install \"$NAME\"?\n\n$DEST\n\nThis downloads and runs community code.")
+resp=$(CONFIRMATION_DIALOG "Install PR #$PR?\n\n$TITLE\n\nThis downloads and runs community code.")
 confirmed "$resp" || { LOG "Cancelled."; exit 0; }
 
-# --- download every file in the manifest -----------------------------------
+# --- download each file ----------------------------------------------------
 LED BLUE 2>/dev/null
-mkdir -p "$DEST"
 FAIL=0
-while IFS= read -r f; do
-    [ -z "$f" ] && continue
-    mkdir -p "$DEST/$(dirname "$f")"
-    LOG cyan "  fetching $f ..."
-    if ! curl -fsSL "$BASE/payloads/$CATEGORY/$NAME/$f" -o "$DEST/$f"; then
-        LOG red "  FAILED: $f"
+while IFS= read -r filename; do
+    [ -z "$filename" ] && continue
+    rel="${filename#payloads/}"
+    dest="$PAYLOAD_ROOT/$rel"
+    mkdir -p "$(dirname "$dest")"
+    LOG cyan "  $rel ..."
+    if ! curl -fsSL "$RAW/$HEAD_SHA/$filename" -o "$dest"; then
+        LOG red "  FAILED: $rel"
         FAIL=1
     fi
-done < <(echo "$INDEX" | jq -r --arg t "$PICK" "$SELQ | .files[]")
+done < <(echo "$LIST" | jq -r '.[].filename')
 
-chmod +x "$DEST/payload.sh" 2>/dev/null
+# --- make payload.sh files executable --------------------------------------
+while IFS= read -r filename; do
+    case "$filename" in
+        */payload.sh) chmod +x "$PAYLOAD_ROOT/${filename#payloads/}" 2>/dev/null ;;
+    esac
+done < <(echo "$LIST" | jq -r '.[].filename')
+
+NAMES=$(echo "$LIST" | jq -r '[.[].filename | select(endswith("/payload.sh")) | split("/") | .[-2]] | unique | join(", ")')
 
 if [ "$FAIL" -eq 0 ]; then
     LED GREEN 2>/dev/null
-    ALERT "Installed: $NAME\n\n$DEST\n\nRun it from the payload menu."
+    ALERT "Installed: $NAMES\n\nfrom PR #$PR\n\nRun it from the payload menu."
 else
     LED AMBER 2>/dev/null
-    ALERT "Installed with errors: $NAME\n\n$DEST\n\nSome files failed to download."
+    ALERT "Installed with errors.\n\nPR #$PR"
 fi
 exit 0
