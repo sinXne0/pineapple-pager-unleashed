@@ -34,6 +34,19 @@ LOG ""
 LOG "Install a payload by its PR number in"
 LOG "github.com/$REPO"
 
+# --- show available PRs ----------------------------------------------------
+PRS=$(curl -fsSL "$API/pulls?state=open&per_page=100" 2>/dev/null)
+if [ -n "$PRS" ]; then
+    LOG ""
+    LOG cyan "Open pull requests:"
+    echo "$PRS" | jq -r '.[] | "  #\(.number)  \(.title)"' | while IFS= read -r line; do
+        LOG "$line"
+    done
+    LOG ""
+else
+    LOG yellow "  (could not list PRs - enter a number manually)"
+fi
+
 # --- ask for the PR number -------------------------------------------------
 PR=$(TEXT_PICKER "Pull request number" "")
 [ -z "$PR" ] && exit 0
