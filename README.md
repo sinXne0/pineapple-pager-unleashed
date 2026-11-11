@@ -94,6 +94,7 @@ it under **Settings → General → Theme**.
 | Darkseclabz Glitch | Glitch-art wargames variant |
 | Darksec Flipper | Flipper Zero monochrome dashboard (dolphin artwork) |
 | Darksec Skeleton | Original pixel-art skeleton dashboard |
+| Darkseclabz Numeric | 1990s alphanumeric-pager style (olive LCD, segmented menu) |
 
 Theme PRs go to
 [hak5/wifipineapplepager-themes](https://github.com/hak5/wifipineapplepager-themes).
