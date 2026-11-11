@@ -19,14 +19,13 @@ TOKEN = os.environ.get("GITHUB_TOKEN", "")
 
 
 def api(url):
-    req = urllib.request.Request(
-        url,
-        headers={
-            "Authorization": "token " + TOKEN,
-            "User-Agent": "unleashed-index-updater",
-            "Accept": "application/vnd.github+json",
-        },
-    )
+    headers = {
+        "User-Agent": "unleashed-index-updater",
+        "Accept": "application/vnd.github+json",
+    }
+    if TOKEN:
+        headers["Authorization"] = "token " + TOKEN
+    req = urllib.request.Request(url, headers=headers)
     with urllib.request.urlopen(req) as r:
         return json.load(r)
 

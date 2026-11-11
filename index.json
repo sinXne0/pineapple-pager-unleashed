@@ -49,6 +49,13 @@
       "title": "SCALPEL - Surgical Handshake Capture",
       "category": "recon/access_point",
       "desc": "Channel lock + targeted deauth to capture a WPA/WPA2 handshake"
+    },
+    {
+      "pr": 8,
+      "name": "evilportal",
+      "title": "EVILPORTAL - Evil Captive Portal",
+      "category": "user/interception",
+      "desc": "Evil captive portal / credential harvester with Flipper Zero templates"
     }
   ]
 }

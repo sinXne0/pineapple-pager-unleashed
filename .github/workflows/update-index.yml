@@ -17,6 +17,7 @@ jobs:
 
       - name: Update index.json
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
           PR_TITLE: ${{ github.event.pull_request.title }}
         run: python3 .github/update_index.py
