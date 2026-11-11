@@ -73,11 +73,30 @@ Once merged (or while open), your payload is installable by its PR number.
 ├── CONTRIBUTING.md
 ├── LICENSE
 ├── index.json                       # number -> payload registry (the installer reads this)
-└── payloads/
-    └── <category>/<name>/           # one directory per payload
-        ├── payload.sh
-        └── ...
+├── payloads/
+│   └── <category>/<name>/           # one directory per payload
+│       ├── payload.sh
+│       └── ...
+└── themes/
+    └── <name>/                      # Pager UI themes (theme.json + components + assets)
 ```
+
+---
+
+## Themes
+
+This repo also hosts community **Pager themes** under `themes/`. Copy a theme
+directory into `/root/themes/` (or `/mmc/root/themes/`) on the Pager, then pick
+it under **Settings → General → Theme**.
+
+| Theme | Description |
+| --- | --- |
+| Darkseclabz Glitch | Glitch-art wargames variant |
+| Darksec Flipper | Flipper Zero monochrome dashboard (dolphin artwork) |
+| Darksec Skeleton | Original pixel-art skeleton dashboard |
+
+Theme PRs go to
+[hak5/wifipineapplepager-themes](https://github.com/hak5/wifipineapplepager-themes).
 
 ---
 
