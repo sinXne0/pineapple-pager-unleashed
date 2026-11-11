@@ -1,0 +1,13 @@
+{
+  "repo": "sinXne0/pineapple-pager-unleashed",
+  "branch": "main",
+  "payloads": [
+    {
+      "name": "unleashed-installer",
+      "title": "UNLEASHED Installer",
+      "category": "user/general",
+      "desc": "Browse and install payloads from this repo",
+      "files": ["payload.sh", "README.md"]
+    }
+  ]
+}

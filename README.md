@@ -1,0 +1,85 @@
+# Pineapple Pager — Unleashed
+
+**Community payloads for the WiFi Pineapple Pager that don't fit Hak5's
+official payload repo.**
+
+Hak5's [official payload library](https://github.com/hak5/wifipineapplepager-payloads)
+curates payloads that are safe, broadly supported, and fit their brand. This
+repo is the flip side: a home for offensive, aggressive, or otherwise
+**uncensored** payloads that Hak5 won't merge — and a place where anyone can
+submit a pull request to add their own.
+
+> **Authorized testing only.** Payloads here may deauthenticate clients,
+> capture credentials, or disrupt networks. You are responsible for running
+> them only against networks, devices, and accounts you own or have written
+> permission to test, and for compliance with local law.
+
+---
+
+## The installer
+
+The repo ships a payload that turns the Pager into its own package manager:
+**UNLEASHED Installer** (`payloads/user/general/unleashed-installer/`).
+
+It browses this repo's `index.json`, lists every payload, and pulls the one you
+pick straight onto the Pager — no laptop, no `scp`, no `git`.
+
+### Install the installer (one time)
+
+Copy the installer folder onto the Pager:
+
+```sh
+scp -r payloads/user/general/unleashed-installer \
+  root@172.16.42.1:/root/payloads/user/general/
+ssh root@172.16.42.1 'chmod +x /root/payloads/user/general/unleashed-installer/payload.sh'
+```
+
+Then run **UNLEASHED Installer** from **Payloads → User Payloads**. Pick a
+payload and it lands in the correct category directory, ready to launch.
+
+---
+
+## Submitting a payload
+
+Anyone can add a payload with a pull request. See
+[CONTRIBUTING.md](CONTRIBUTING.md) for the full rules.
+
+The short version:
+
+1. Fork this repo and create a branch.
+2. Add your payload under `payloads/<category>/<name>/`:
+   ```text
+   payloads/user/interception/mypayload/
+     payload.sh          # required, executable, with a DuckyScript header
+     ...                 # any supporting files
+     README.md           # recommended
+   ```
+3. Add your payload to `index.json` (name, title, category, desc, files).
+4. Open a pull request against `main`.
+
+Valid categories are the Pager's native payload roots:
+`user/*`, `recon/access_point`, `recon/client`, `alerts/*`.
+
+---
+
+## Repository layout
+
+```text
+.
+├── README.md
+├── CONTRIBUTING.md
+├── LICENSE
+├── index.json                       # manifest the installer reads
+└── payloads/
+    └── <category>/<name>/           # one directory per payload
+        ├── payload.sh
+        └── ...
+```
+
+---
+
+## Legal
+
+For authorized security testing, research, and education only. Not affiliated
+with or endorsed by Hak5. Maintainers and contributors accept no liability for
+misuse or damage.
