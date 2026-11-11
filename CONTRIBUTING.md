@@ -49,8 +49,8 @@ under `payloads/`.
 Every payload also has a permanent entry in **`index.json`** (the registry) at
 the repo root. This is the durable number→payload mapping — it keeps working
 after the PR is merged, so people always know which number installs which
-payload. When your payload is merged, a maintainer adds (or updates) its
-`index.json` entry with the real PR number.
+payload. A GitHub Action updates `index.json` **automatically** when your PR
+is merged, so you don't need to touch it.
 
 Keep the payload directory self-contained: every file the payload needs to run
 must be in that directory (including nested paths like `lib/pagerctl.so` or
