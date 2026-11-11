@@ -44,9 +44,13 @@ Valid categories (matching the Pager's payload roots):
 
 The installer works by PR number. When a user enters your PR number, it
 fetches that PR's changed files via the GitHub API and installs every file
-under `payloads/`. So you don't need to update any manifest — just make sure
-your payload lives at `payloads/<category>/<name>/` and its `payload.sh` is
-present.
+under `payloads/`.
+
+Every payload also has a permanent entry in **`index.json`** (the registry) at
+the repo root. This is the durable number→payload mapping — it keeps working
+after the PR is merged, so people always know which number installs which
+payload. When your payload is merged, a maintainer adds (or updates) its
+`index.json` entry with the real PR number.
 
 Keep the payload directory self-contained: every file the payload needs to run
 must be in that directory (including nested paths like `lib/pagerctl.so` or

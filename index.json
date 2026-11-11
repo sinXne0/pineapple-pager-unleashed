@@ -1,0 +1,54 @@
+{
+  "repo": "sinXne0/pineapple-pager-unleashed",
+  "payloads": [
+    {
+      "pr": 1,
+      "name": "venus",
+      "title": "VENUS - Flytrap Rogue AP",
+      "category": "user/interception",
+      "desc": "Evil-twin flytrap with on-device spiderweb UI, captive portal, deauth lure"
+    },
+    {
+      "pr": 2,
+      "name": "mirrorcast",
+      "title": "MIRRORCAST - Cast & Print Honeypot",
+      "category": "user/interception",
+      "desc": "mDNS/SSDP cast + print honeypot, print capture, castjack"
+    },
+    {
+      "pr": 3,
+      "name": "iotjack",
+      "title": "IoTJACK - IoT Exploitation Toolkit",
+      "category": "user/interception",
+      "desc": "Kasa / MQTT / UPnP IGD / TR-064 / RTSP / PJL modules"
+    },
+    {
+      "pr": 4,
+      "name": "pwrlvl9000",
+      "title": "PWRLVL9000 - Pentest Web UI",
+      "category": "user/interception",
+      "desc": "9-tab web console, XP leveling, handshake vault"
+    },
+    {
+      "pr": 5,
+      "name": "gitgrep",
+      "title": "GITGREP - GitHub Secret Hunter",
+      "category": "user/reconnaissance",
+      "desc": "GitHub / git secret hunter, 35+ detectors, masked reports"
+    },
+    {
+      "pr": 6,
+      "name": "phonephreak",
+      "title": "PHONEPHREAK - Phone Number OSINT",
+      "category": "user/reconnaissance",
+      "desc": "E.164 validation, line type, link pack, QR handoff, bulk mode"
+    },
+    {
+      "pr": 7,
+      "name": "scalpel",
+      "title": "SCALPEL - Surgical Handshake Capture",
+      "category": "recon/access_point",
+      "desc": "Channel lock + targeted deauth to capture a WPA/WPA2 handshake"
+    }
+  ]
+}

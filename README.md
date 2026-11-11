@@ -21,8 +21,9 @@ submit a pull request to add their own.
 The repo ships a payload that turns the Pager into its own package manager:
 **UNLEASHED Installer** (`payloads/user/general/unleashed-installer/`).
 
-You give it a **pull-request number** and it pulls that payload straight onto
-the Pager — no laptop, no `scp`, no `git`.
+It shows the numbered registry (`index.json`) so you always know which number
+installs which payload, then you enter a **number** and it pulls that payload
+straight onto the Pager — no laptop, no `scp`, no `git`.
 
 ### Install the installer (one time)
 
@@ -34,9 +35,9 @@ scp -r payloads/user/general/unleashed-installer \
 ssh root@172.16.42.1 'chmod +x /root/payloads/user/general/unleashed-installer/payload.sh'
 ```
 
-Then run **UNLEASHED Installer** from **Payloads → User Payloads**. Enter the
-PR number of the payload you want, confirm, and it lands in the correct
-category directory, ready to launch.
+Then run **UNLEASHED Installer** from **Payloads → User Payloads**. It lists
+the numbered payloads, you enter the number of the one you want, confirm, and
+it lands in the correct category directory, ready to launch.
 
 ---
 
@@ -71,6 +72,7 @@ Once merged (or while open), your payload is installable by its PR number.
 ├── README.md
 ├── CONTRIBUTING.md
 ├── LICENSE
+├── index.json                       # number -> payload registry (the installer reads this)
 └── payloads/
     └── <category>/<name>/           # one directory per payload
         ├── payload.sh

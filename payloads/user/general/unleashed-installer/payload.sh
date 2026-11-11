@@ -34,17 +34,17 @@ LOG ""
 LOG "Install a payload by its PR number in"
 LOG "github.com/$REPO"
 
-# --- show available PRs ----------------------------------------------------
-PRS=$(curl -fsSL "$API/pulls?state=open&per_page=100" 2>/dev/null)
-if [ -n "$PRS" ]; then
+# --- show the registry (durable number -> payload mapping) -----------------
+REG=$(curl -fsSL "$RAW/main/index.json" 2>/dev/null)
+if [ -n "$REG" ]; then
     LOG ""
-    LOG cyan "Open pull requests:"
-    echo "$PRS" | jq -r '.[] | "  #\(.number)  \(.title)"' | while IFS= read -r line; do
+    LOG cyan "Payloads (number - what it is):"
+    echo "$REG" | jq -r '.payloads[] | "  #\(.pr)  \(.title)"' | while IFS= read -r line; do
         LOG "$line"
     done
     LOG ""
 else
-    LOG yellow "  (could not list PRs - enter a number manually)"
+    LOG yellow "  (could not load the registry - enter a number manually)"
 fi
 
 # --- ask for the PR number -------------------------------------------------
