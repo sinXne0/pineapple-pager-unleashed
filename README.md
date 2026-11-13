@@ -95,6 +95,8 @@ it under **Settings → General → Theme**.
 | Darksec Flipper | Flipper Zero monochrome dashboard (dolphin artwork) |
 | Darksec Skeleton | Original pixel-art skeleton dashboard |
 | Darkseclabz Numeric | 1990s alphanumeric-pager style (olive LCD, segmented menu) |
+| Darkseclabz Desktop | macOS Tahoe-inspired glass dock dashboard |
+| Darkseclabz Hadal Station | Underwater research-station dashboard |
 
 Theme PRs go to
 [hak5/wifipineapplepager-themes](https://github.com/hak5/wifipineapplepager-themes).
