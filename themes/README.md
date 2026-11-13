@@ -39,16 +39,27 @@ top-level theme folder with `theme.json` at its root:
 
 | Theme | Internal name | Version | Description |
 | --- | --- | --- | --- |
-| `darkseclabz-glitch` | Darkseclabz Glitch | 1.0.0 | Glitch-art wargames variant |
+| `darkseclabz-glitch` | Darkseclabz Glitch | 1.0.1 | Glitch-art wargames variant |
 | `darksecflipper` | Darksec Flipper | 1.0.0 | Flipper Zero monochrome dashboard with the L1_Tv dolphin artwork |
 | `darksecskeleton` | Darksec Skeleton | 1.2.0 | Original pixel-art skeleton dashboard |
 | `darkseclabz-numeric` | Darkseclabz Numeric | 1.0.0 | 1990s alphanumeric pager: olive LCD, segmented menu numbers, inbox-style payload menu |
-| `darkseclabz-desktop` | Darkseclabz Desktop | 11.0.1 | macOS Tahoe-inspired glass dock, magnified selection and six dashboard cards |
-| `darkseclabz-hadal` | Darkseclabz Hadal Station | 1.0.1 | Underwater research station with six selectable rooms and a startup self-test |
+| `darkseclabz-desktop` | Darkseclabz Desktop | 11.0.2 | macOS Tahoe-inspired glass dock, magnified selection and six dashboard cards |
+| `darkseclabz-hadal` | Darkseclabz Hadal Station | 1.0.2 | Underwater research station with six selectable rooms and a startup self-test |
 
 ## Changelog
 
 ### 2026-11-13
+
+**Theme validation fixes (Glitch 1.0.1, Desktop 11.0.2, Hadal Station 1.0.2)**
+
+- `components/lock_screen.json`: turned `windowed_canvas` off. The lock screen
+  background is a fully opaque 480 × 222 image, so the windowed canvas was
+  keeping an unused copy of the previous screen and never canvas-caching it.
+- `components/os_licenses.json`: both pages now use `back` instead of
+  targeting `dashboard`. Targeting the boot dashboard pushed another copy of
+  it onto the navigation stack on every round.
+
+**Dashboard fixes**
 
 - **Darkseclabz Desktop 11.0.1** — removed the six dashboard dock labels drawn
   by JSON over artwork that already contains the card titles, which caused
