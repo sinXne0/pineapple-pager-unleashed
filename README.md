@@ -78,6 +78,8 @@ Once merged (or while open), your payload is installable by its PR number.
 │       ├── payload.sh
 │       └── ...
 └── themes/
+    ├── README.md                    # theme catalog, install guide and changelog
+    ├── zips/                        # prebuilt, flat theme archives
     └── <name>/                      # Pager UI themes (theme.json + components + assets)
 ```
 
@@ -88,6 +90,9 @@ Once merged (or while open), your payload is installable by its PR number.
 This repo also hosts community **Pager themes** under `themes/`. Copy a theme
 directory into `/root/themes/` (or `/mmc/root/themes/`) on the Pager, then pick
 it under **Settings → General → Theme**.
+
+Theme folders, install steps, the full catalog, prebuilt zips and the changelog
+are in [`themes/README.md`](themes/README.md).
 
 | Theme | Description |
 | --- | --- |
