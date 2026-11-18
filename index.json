@@ -62,6 +62,12 @@
       "name": "keysmith",
       "title": "KEYSMITH - Default WPA Key Cracker",
       "category": "user/reconnaissance"
+    },
+    {
+      "pr": 11,
+      "name": "echofield",
+      "title": "ECHOFIELD - HackRF Passive Radar Console",
+      "category": "user/reconnaissance"
     }
   ]
 }
