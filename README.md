@@ -54,6 +54,7 @@ The number is the PR that added the payload and stays with it forever.
 | 7 | SCALPEL | Channel-locked targeted handshake capture |
 | 8 | EVILPORTAL | Evil captive portal / credential harvester with Flipper Zero templates |
 | 10 | KEYSMITH | Derives ISP-default WPA keys from SSID+BSSID, verifies by handshake and shows the plaintext PSK |
+| 12 | SHARD | Pager-only FragAttacks injector: A-MSDU frame injection into WPA2 clients without the PSK (CVE-2020-24588) |
 
 Install #10 with:
 
@@ -62,6 +63,17 @@ scp -r payloads/user/reconnaissance/keysmith \
   root@172.16.42.1:/root/payloads/user/reconnaissance/
 ssh root@172.16.42.1 'chmod +x /root/payloads/user/reconnaissance/keysmith/payload.sh /root/payloads/user/reconnaissance/keysmith/keysmith.py /root/payloads/user/reconnaissance/keysmith/install_pkg.py /root/payloads/user/reconnaissance/keysmith/lib/udhcpc.script'
 ```
+
+Install #12 with:
+
+```sh
+scp -r payloads/user/reconnaissance/shard \
+  root@172.16.52.1:/root/payloads/user/reconnaissance/
+ssh root@172.16.52.1 'chmod +x /root/payloads/user/reconnaissance/shard/payload.sh /root/payloads/user/reconnaissance/shard/shard.py /root/payloads/user/reconnaissance/shard/sd/ui.py /root/payloads/user/reconnaissance/shard/install_pkg.py'
+```
+
+SHARD injects only on 2.4 GHz / non-DFS 5 GHz, cannot attack WPA3/PMF
+networks, and probes injection capability on-device before reporting success.
 
 ---
 
