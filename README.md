@@ -54,7 +54,6 @@ The number is the PR that added the payload and stays with it forever.
 | 7 | SCALPEL | Channel-locked targeted handshake capture |
 | 8 | EVILPORTAL | Evil captive portal / credential harvester with Flipper Zero templates |
 | 10 | KEYSMITH | Derives ISP-default WPA keys from SSID+BSSID, verifies by handshake and shows the plaintext PSK |
-| 11 | ECHOFIELD | HackRF passive-radar console: range/Doppler map from FM broadcasts, with sim and recorded-IQ modes |
 
 Install #10 with:
 
@@ -63,17 +62,6 @@ scp -r payloads/user/reconnaissance/keysmith \
   root@172.16.42.1:/root/payloads/user/reconnaissance/
 ssh root@172.16.42.1 'chmod +x /root/payloads/user/reconnaissance/keysmith/payload.sh /root/payloads/user/reconnaissance/keysmith/keysmith.py /root/payloads/user/reconnaissance/keysmith/install_pkg.py /root/payloads/user/reconnaissance/keysmith/lib/udhcpc.script'
 ```
-
-Install #11 with:
-
-```sh
-scp -r payloads/user/reconnaissance/echofield \
-  root@172.16.42.1:/root/payloads/user/reconnaissance/
-ssh root@172.16.42.1 'chmod +x /root/payloads/user/reconnaissance/echofield/payload.sh /root/payloads/user/reconnaissance/echofield/echofield.py /root/payloads/user/reconnaissance/echofield/ef/ui.py /root/payloads/user/reconnaissance/echofield/install_pkg.py'
-```
-
-Real passive-radar mode needs two coherent HackRF channels. The default
-`sim` mode runs without any SDR hardware.
 
 ---
 
