@@ -162,7 +162,7 @@ IP (or `-`), result.
 python3 -m unittest discover -s keysmith/tests -v
 ```
 
-74 tests, no radio and no real network:
+76 tests, no radio and no real network:
 
 - all 40 RouterKeygen algorithm vectors, parsed from upstream when the source
   tree is present and embedded verbatim otherwise
