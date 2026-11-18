@@ -56,6 +56,12 @@
       "title": "EVILPORTAL - Evil Captive Portal",
       "category": "user/interception",
       "desc": "Evil captive portal / credential harvester with Flipper Zero templates"
+    },
+    {
+      "pr": 10,
+      "name": "keysmith",
+      "title": "KEYSMITH - Default WPA Key Cracker",
+      "category": "user/reconnaissance"
     }
   ]
 }
