@@ -39,6 +39,30 @@ Then run **UNLEASHED Installer** from **Payloads → User Payloads**. It lists
 the numbered payloads, you enter the number of the one you want, confirm, and
 it lands in the correct category directory, ready to launch.
 
+### Payload catalog
+
+The number is the PR that added the payload and stays with it forever.
+
+| # | Payload | Description |
+| --- | --- | --- |
+| 1 | VENUS | Flytrap rogue AP with spiderweb UI, captive portal and deauth lure |
+| 2 | MIRRORCAST | mDNS/SSDP cast + print honeypot, print capture and castjack |
+| 3 | IoTJACK | Kasa / MQTT / UPnP IGD / TR-064 / RTSP / PJL modules |
+| 4 | PWRLVL9000 | Nine-tab pentest web console with XP leveling and handshake vault |
+| 5 | GITGREP | GitHub and git secret hunter with 35+ detectors and masked reports |
+| 6 | PHONEPHREAK | Phone-number OSINT, line type, link pack, QR handoff and bulk mode |
+| 7 | SCALPEL | Channel-locked targeted handshake capture |
+| 8 | EVILPORTAL | Evil captive portal / credential harvester with Flipper Zero templates |
+| 10 | KEYSMITH | Derives ISP-default WPA keys from SSID+BSSID, verifies by handshake and shows the plaintext PSK |
+
+Install #10 with:
+
+```sh
+scp -r payloads/user/reconnaissance/keysmith \
+  root@172.16.42.1:/root/payloads/user/reconnaissance/
+ssh root@172.16.42.1 'chmod +x /root/payloads/user/reconnaissance/keysmith/payload.sh /root/payloads/user/reconnaissance/keysmith/keysmith.py /root/payloads/user/reconnaissance/keysmith/install_pkg.py /root/payloads/user/reconnaissance/keysmith/lib/udhcpc.script'
+```
+
 ---
 
 ## Submitting a payload
