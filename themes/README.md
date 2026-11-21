@@ -34,6 +34,8 @@ top-level theme folder with `theme.json` at its root:
 | `darkseclabz-numeric.zip` | `darkseclabz-numeric/` |
 | `darkseclabz-desktop.zip` | `darkseclabz-desktop/` |
 | `darkseclabz-hadal.zip` | `darkseclabz-hadal/` |
+| `40k.zip` | `40k/` |
+| `edgerunners_detail_glitch.zip` | `edgerunners_detail_glitch/` |
 
 ## Catalog
 
@@ -45,8 +47,15 @@ top-level theme folder with `theme.json` at its root:
 | `darkseclabz-numeric` | Darkseclabz Numeric | 1.0.0 | 1990s alphanumeric pager: olive LCD, segmented menu numbers, inbox-style payload menu |
 | `darkseclabz-desktop` | Darkseclabz Desktop | 11.0.2 | macOS Tahoe-inspired glass dock, magnified selection and six dashboard cards |
 | `darkseclabz-hadal` | Darkseclabz Hadal Station | 1.0.2 | Underwater research station with six selectable rooms and a startup self-test |
+| `40k` | 40k | 1.0.1 | Warhammer 40K / INQUISITOR six-state wheel with live Wargames components |
+| `edgerunners_detail_glitch` | Edgerunners Detail Glitch | 3.1.0 | Cyberpunk: Edgerunners detail/glitch artwork set |
 
 ## Changelog
+
+### 2026-11-21
+
+- Added `40k` and `edgerunners_detail_glitch` themes.
+- Added flat prebuilt archives for both themes to `zips/`.
 
 ### 2026-11-13
 

@@ -138,6 +138,8 @@ are in [`themes/README.md`](themes/README.md).
 | Darkseclabz Numeric | 1990s alphanumeric-pager style (olive LCD, segmented menu) |
 | Darkseclabz Desktop | macOS Tahoe-inspired glass dock dashboard |
 | Darkseclabz Hadal Station | Underwater research-station dashboard |
+| 40k | Warhammer 40K / INQUISITOR six-state wheel |
+| Edgerunners Detail Glitch | Cyberpunk: Edgerunners detail/glitch artwork set |
 
 Theme PRs go to
 [hak5/wifipineapplepager-themes](https://github.com/hak5/wifipineapplepager-themes).
