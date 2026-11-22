@@ -72,7 +72,7 @@
     {
       "pr": 14,
       "name": "nullgate",
-      "title": "NULLGATE - UniFi OS Unauthenticated Root RCE",
+      "title": "NULLGATE - UniFi OS unauthenticated root RCE",
       "category": "user/exfiltration"
     }
   ]
