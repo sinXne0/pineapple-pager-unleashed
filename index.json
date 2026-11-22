@@ -68,6 +68,12 @@
       "name": "shard",
       "title": "SHARD - 802.11 Fragment Injection",
       "category": "user/reconnaissance"
+    },
+    {
+      "pr": 14,
+      "name": "nullgate",
+      "title": "NULLGATE - UniFi OS Unauthenticated Root RCE",
+      "category": "user/exfiltration"
     }
   ]
 }
