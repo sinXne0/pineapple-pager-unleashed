@@ -171,6 +171,7 @@ are in [`themes/README.md`](themes/README.md).
 | Darkseclabz Hadal Station | Underwater research-station dashboard |
 | 40k | Warhammer 40K / INQUISITOR six-state wheel |
 | Edgerunners Detail Glitch | Cyberpunk: Edgerunners detail/glitch artwork set |
+| Edgrunners | Edgerunners Neon Afterlife - Night City districts edition |
 
 Theme PRs go to
 [hak5/wifipineapplepager-themes](https://github.com/hak5/wifipineapplepager-themes).

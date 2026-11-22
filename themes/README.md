@@ -49,13 +49,14 @@ top-level theme folder with `theme.json` at its root:
 | `darkseclabz-hadal` | Darkseclabz Hadal Station | 1.0.2 | Underwater research station with six selectable rooms and a startup self-test |
 | `40k` | 40k | 1.0.1 | Warhammer 40K / INQUISITOR six-state wheel with live Wargames components |
 | `edgerunners_detail_glitch` | Edgerunners Detail Glitch | 3.1.0 | Cyberpunk: Edgerunners detail/glitch artwork set |
+| `edgrunners` | Edgrunners | 3.0.0 | Edgerunners Neon Afterlife - Night City districts edition |
 
 ## Changelog
 
 ### 2026-11-21
 
-- Added `40k` and `edgerunners_detail_glitch` themes.
-- Added flat prebuilt archives for both themes to `zips/`.
+- Added `40k`, `edgerunners_detail_glitch`, and `edgrunners` themes.
+- Added flat prebuilt archives for all three themes to `zips/`.
 
 ### 2026-11-13
 
