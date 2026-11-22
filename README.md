@@ -56,6 +56,7 @@ The number is the PR that added the payload and stays with it forever.
 | 10 | KEYSMITH | Derives ISP-default WPA keys from SSID+BSSID, verifies by handshake and shows the plaintext PSK |
 | 12 | SHARD | Pager-only FragAttacks injector: A-MSDU frame injection into WPA2 clients without the PSK (CVE-2020-24588) |
 | 14 | NULLGATE | Unauthenticated root RCE against UniFi OS consoles (CVE-2026-34908/34909/34910): secret-store dump and owner-token forge |
+| 15 | ELRSJACK | ELRS 900M link credential recovery via the Mesh Mod SX1262: FHSS seed + binding phrase, bench-only probe |
 
 Install #10 with:
 
@@ -88,6 +89,22 @@ NULLGATE needs L3 reachability to a vulnerable UniFi OS console on TCP 11443.
 It confirms execution only via a callback nonce and was validated against a
 faithful local mock — no live vulnerable appliance was available during
 development. Patched consoles are reported as `PATCHED`, never exploited.
+
+Install #15 with:
+
+```sh
+scp -r payloads/user/general/elrsjack \
+  root@172.16.52.1:/root/payloads/user/general/
+ssh root@172.16.52.1 'chmod +x /root/payloads/user/general/elrsjack/payload.sh /root/payloads/user/general/elrsjack/elrsjack.py /root/payloads/user/general/elrsjack/elrs/ui.py'
+```
+
+ELRSJACK needs the Glytch Mesh Mod (SX1262 on ch341 SPI) and stops `meshtasticd`
+while running. Sub-GHz ELRS only; 2.4 GHz links are not supported. It recovers
+the FHSS seed and weak binding phrase — **no flight/vehicle control packets are
+generated**, and the bench probe generates no actuator input. Sync-word
+behavior on the SX1262 is uncertain, so candidates are cycled manually and only
+OTA-CRC-valid packets are trusted. Validated with mocked radios only; no live
+ELRS link or Pager hardware was available.
 
 ---
 

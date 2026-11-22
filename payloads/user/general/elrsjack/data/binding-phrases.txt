@@ -1,0 +1,53 @@
+# ELRSJACK default weak-binding-phrase wordlist.
+# Add target-specific phrases before running the offline cracker.
+# Each line is tried as-is plus case/separator mutations.
+expresslrs
+ExpressLRS
+default
+default ExpressLRS binding phrase
+MY_BINDING_PHRASE
+binding phrase
+bindingphrase
+elrs
+ELRS
+pager
+glytch
+pineapple
+drone
+quad
+fpv
+FPV
+betaflight
+Betaflight
+test
+testing
+password
+letmein
+admin
+admin123
+123456
+qwerty
+hackrf
+wifi
+hashcat
+nope
+secret
+drone1
+quad1
+fpv1
+myelrs
+elrs123
+bindme
+bindphrase
+changeme
+change me
+defaultphrase
+绿
+DroneLink
+MyELRSLink
+ELRS_Test
+Test123
+abc123
+letmein123
+passw0rd
+P@ssw0rd
