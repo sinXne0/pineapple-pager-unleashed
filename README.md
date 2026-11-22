@@ -55,6 +55,7 @@ The number is the PR that added the payload and stays with it forever.
 | 8 | EVILPORTAL | Evil captive portal / credential harvester with Flipper Zero templates |
 | 10 | KEYSMITH | Derives ISP-default WPA keys from SSID+BSSID, verifies by handshake and shows the plaintext PSK |
 | 12 | SHARD | Pager-only FragAttacks injector: A-MSDU frame injection into WPA2 clients without the PSK (CVE-2020-24588) |
+| 14 | NULLGATE | Unauthenticated root RCE against UniFi OS consoles (CVE-2026-34908/34909/34910): secret-store dump and owner-token forge |
 
 Install #10 with:
 
@@ -74,6 +75,19 @@ ssh root@172.16.52.1 'chmod +x /root/payloads/user/reconnaissance/shard/payload.
 
 SHARD injects only on 2.4 GHz / non-DFS 5 GHz, cannot attack WPA3/PMF
 networks, and probes injection capability on-device before reporting success.
+
+Install #14 with:
+
+```sh
+scp -r payloads/user/exfiltration/nullgate \
+  root@172.16.52.1:/root/payloads/user/exfiltration/
+ssh root@172.16.52.1 'chmod +x /root/payloads/user/exfiltration/nullgate/payload.sh /root/payloads/user/exfiltration/nullgate/nullgate.py /root/payloads/user/exfiltration/nullgate/sd/ui.py'
+```
+
+NULLGATE needs L3 reachability to a vulnerable UniFi OS console on TCP 11443.
+It confirms execution only via a callback nonce and was validated against a
+faithful local mock — no live vulnerable appliance was available during
+development. Patched consoles are reported as `PATCHED`, never exploited.
 
 ---
 
