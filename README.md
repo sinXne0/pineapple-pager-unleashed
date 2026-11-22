@@ -57,6 +57,7 @@ The number is the PR that added the payload and stays with it forever.
 | 12 | SHARD | Pager-only FragAttacks injector: A-MSDU frame injection into WPA2 clients without the PSK (CVE-2020-24588) |
 | 14 | NULLGATE | Unauthenticated root RCE against UniFi OS consoles (CVE-2026-34908/34909/34910): secret-store dump and owner-token forge |
 | 15 | ELRSJACK | ELRS 900M link credential recovery via the Mesh Mod SX1262: FHSS seed + binding phrase, bench-only probe |
+| 16 | FTKRACK | 802.11r Fast Transition key reinstallation (CVE-2017-13082): replay a captured FT reassociation request and confirm AP PTK/TK reinstall from CCMP PN reuse |
 
 Install #10 with:
 
@@ -105,6 +106,21 @@ generated**, and the bench probe generates no actuator input. Sync-word
 behavior on the SX1262 is uncertain, so candidates are cycled manually and only
 OTA-CRC-valid packets are trusted. Validated with mocked radios only; no live
 ELRS link or Pager hardware was available.
+
+Install #16 with:
+
+```sh
+scp -r payloads/user/interception/ftkrack \
+  root@172.16.52.1:/root/payloads/user/interception/
+ssh root@172.16.52.1 'chmod +x /root/payloads/user/interception/ftkrack/payload.sh /root/payloads/user/interception/ftkrack/ftkrack.py /root/payloads/user/interception/ftkrack/ft/ui.py'
+```
+
+FTKRACK requires the MT7921 to already be in radiotap monitor mode on `wlan1mon`
+(ARPHRD 803) and only replays the captured 802.11r reassociation frame verbatim.
+It confirms a key reinstallation only from an accepted replay write plus a
+status-0 response for the same station plus per-(AP, station, TID) CCMP PN reuse.
+No Mesh Mod or extra hardware is needed. No live 802.11r AP/client or Pager
+hardware was available during development; all validation was mocked.
 
 ---
 

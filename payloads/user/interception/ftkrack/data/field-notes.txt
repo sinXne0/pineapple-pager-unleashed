@@ -1,0 +1,43 @@
+FTKRACK field notes
+===================
+
+Operator checklist
+------------------
+1. Confirm written authorization for the target AP and clients.
+2. Put the MT7921 into radiotap monitor mode (wlan1mon, ARPHRD 803) from the
+   Pineapple UI. FTKRACK does not change interface mode.
+3. Lock wlan1mon to the channel used by the target 802.11r AP.
+4. Launch payload.sh; authorize in INTRO; verify MON=OK in TARGET.
+5. In CAPTURE, sniff while a client performs an FT transition. You need an
+   FT Reassociation Request carrying MDIE (54) and FTIE (55).
+6. In REPLAY, inject the captured frame (default 3 times).
+7. In PROOF, verify. Require CONFIRMED with: accepted writes, status-0
+   reassociation response, and CCMP PN reuse/regression.
+
+What a negative result means
+----------------------------
+- No FT request: AP may not use 802.11r, or traffic was on a different channel.
+- No response after replay: AP patched, PMF required, or frame did not reach it.
+- No PN reuse: AP patched for CVE-2017-13082, or not enough AP data captured.
+- Write errors: monitor interface does not accept injected management frames.
+
+Do not interpret UNCONFIRMED as a successful attack.
+
+Frame reference
+---------------
+Reassociation Request (management type 0, subtype 2):
+  FC(2) Duration(2) Addr1=AP(6) Addr2=STA(6) Addr3=BSSID(6) Seq(2)
+  Capability(2) Listen(2) CurrentAP(6) IEs...
+FTIE (ID 55):
+  MIC Control(2) MIC(16) SNonce(32) ANonce(32) [subelements...]
+MDIE (ID 54):
+  MDID(2) FT Capability/Policy(1)
+CCMP header (8) after the MAC/QoS header:
+  PN0 PN1 res0 key_id/ext_iv PN2 PN3 PN4 PN5
+  PN = PN0 | PN1<<8 | PN2<<16 | PN3<<24 | PN4<<32 | PN5<<40
+
+References
+----------
+- CVE-2017-13082 / VU#228519 / w1.fi security advisory 2017-1
+- "Key Reinstallation Attacks: Forcing Nonce Reuse in WPA2",
+  https://papers.mathyvanhoef.com/ccs2017.pdf

@@ -80,6 +80,12 @@
       "name": "elrsjack",
       "title": "ELRSJACK - ELRS 900M Link Credential Recovery",
       "category": "user/general"
+    },
+    {
+      "pr": 16,
+      "name": "ftkrack",
+      "title": "FTKRACK - 802.11r Fast Transition Key Reinstallation",
+      "category": "user/interception"
     }
   ]
 }
