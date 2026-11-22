@@ -74,6 +74,12 @@
       "name": "nullgate",
       "title": "NULLGATE - UniFi OS Unauthenticated Root RCE",
       "category": "user/exfiltration"
+    },
+    {
+      "pr": 15,
+      "name": "elrsjack",
+      "title": "ELRSJACK - ELRS 900M Link Credential Recovery",
+      "category": "user/general"
     }
   ]
 }
